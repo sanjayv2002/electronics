@@ -33,6 +33,42 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
+    @GetMapping("/price/{price}")
+    public List<Product> getProductsByPrice(@PathVariable Float price) { return productService.getAllProductsByPrice(price);}
+
+    @GetMapping("/pl/{price}")
+    public List<Product> getProductsByPriceLess(@PathVariable Float price) {
+        return productService.getAllProductsByPriceLessThan(price);
+    }
+
+    @GetMapping("/pg/{price}")
+    public List<Product> getProductsByPriceGreater(@PathVariable Float price){
+        return productService.getAllProductsByPriceGreaterThan(price);
+    }
+
+    @GetMapping("/pricerange/{price1}-{price2}")
+    public List<Product> getProductsByPriceBetween(@PathVariable Float price1, @PathVariable Float price2) {
+        return productService.getProductByPriceBetween(price1, price2);
+    }
+
+    @GetMapping("/stock/{stock}")
+    public List<Product> getProductsByStock(@PathVariable Integer stock) { return productService.getAllProductsByStock(stock);}
+
+    @GetMapping("/stockrange/{stock1}-{stock2}")
+    public List<Product> getProductsByStockBetween(@PathVariable Integer stock1, @PathVariable Integer stock2) {
+         return productService.getAllProductsByStockBetween( stock1, stock2);
+    }
+
+    @GetMapping("/sl/{stock}")
+    public List<Product> getProductsByStockLess(@PathVariable Integer stock){
+        return productService.getAllProductsByStockLessThan(stock);
+    }
+
+    @GetMapping("/sg/{stock}")
+    public List<Product> getProductsByStockGreater(@PathVariable Integer stock){
+        return productService.getAllProductsByStockGreaterThan(stock);
+    }
+
     @PutMapping
     public Product updateProduct(@RequestBody Product product){
         return productService.updateProduct(product);

@@ -27,9 +27,37 @@ public class ProductService {
         return productRepository.findById(productId).get();
     }
 
-//    public List<Product> getProductByPrice(Float price1, Float price2){
-//        return productRepository.findAllByPrice(price1, price2);
-//    }
+    public List<Product> getAllProductsByPrice(Float price) {
+        return productRepository.findAllProductsByPrice(price);
+    }
+
+    public List<Product> getAllProductsByStock(Integer stock) {
+        return productRepository.findAllProductsByStock(stock);
+    }
+
+    public List<Product> getAllProductsByStockBetween(Integer stock1, Integer stock2) {
+        return productRepository.findAllProductsByStockBetween(stock1, stock2);
+    }
+
+    public List<Product> getAllProductsByStockLessThan(Integer stock){
+        return  productRepository.findAllProductsByStockLessThanEqual(stock);
+    }
+
+    public List<Product> getAllProductsByStockGreaterThan(Integer stock){
+        return  productRepository.findAllProductsByStockGreaterThanEqual(stock);
+    }
+
+    public List<Product> getProductByPriceBetween(Float price1, Float price2){
+        return productRepository.findAllProductsByPriceBetween(price1, price2);
+    }
+
+    public List<Product> getAllProductsByPriceLessThan(Float price) {
+        return productRepository.findAllProductsByPriceLessThanEqual(price);
+    }
+
+    public  List<Product> getAllProductsByPriceGreaterThan(Float price) {
+        return  productRepository.findAllProductsByPriceGreaterThanEqual(price);
+    }
 
     public Product updateProduct(Product productRequest) {
         Product existingProduct = productRepository.findById(productRequest.getProductId()).get();
