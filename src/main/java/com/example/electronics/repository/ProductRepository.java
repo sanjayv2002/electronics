@@ -1,6 +1,7 @@
 package com.example.electronics.repository;
 
 import com.example.electronics.model.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@EnableMongoRepositories
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
 

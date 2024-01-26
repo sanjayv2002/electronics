@@ -1,7 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://sanjaymurthy29:WmPwfFMx24ZGmrRE@cluster0.gtqmytk.mongodb.net/
+      host: localhost
+      port: 27017
       database: products
 server:
   port: 8082
