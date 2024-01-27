@@ -27,7 +27,9 @@ public class ProductRepositoryTest {
     private ProductRepository productRepository;
 
     @Test
-    public void testFindAllProductsByPriceBetween(){
+    public void testFindAllProductsByPriceBetween() {
+
+        productRepository.deleteAll();
 
         Product productA = TestDataUtils.createTestProductA();
         Product productB = TestDataUtils.createTestProductB();
@@ -49,18 +51,75 @@ public class ProductRepositoryTest {
 
     @Test
     public void testFindAllProductsByPriceLessThanEqual() {
-        // Test data setup
-        Float maxPrice = 90.0F;
-        Product product1 = new Product("1", "Product1", "Description1", 50.0F, 10);
-        Product product2 = new Product("2", "Product2", "Description2", 80.0F, 20);
 
-        // Mocking repository behavior
-        when(productRepository.findAllProductsByPriceLessThanEqual(eq(maxPrice)))
-                .thenReturn(Arrays.asList(product1, product2));
+        productRepository.deleteAll();
 
-        // Perform the repository method and verify the result
-        List<Product> result = productRepository.findAllProductsByPriceLessThanEqual(maxPrice);
+        Product productA = TestDataUtils.createTestProductA();
+        Product productB = TestDataUtils.createTestProductB();
+
+        productRepository.save(productA);
+        productRepository.save(productB);
+
+        List<Product> result = productRepository.findAllProductsByPriceLessThanEqual(250.34F);
+
+        assertNotNull(result);
         assertEquals(2, result.size());
+
     }
+
+    @Test
+    public void testFindAllProductsByPriceGreaterThanEqual(){
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productB = TestDataUtils.createTestProductB();
+
+        productRepository.save(productA);
+        productRepository.save(productB);
+
+        List<Product> result = productRepository.findAllProductsByPriceGreaterThanEqual(100.00F);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+    }
+
+    @Test
+    public void testFindAllProductsByStockBetween() {
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productD = TestDataUtils.createTestProductD();
+
+        productRepository.save(productA);
+        productRepository.save(productD);
+
+        List<Product> result = productRepository.findAllProductsByStockBetween(10, 25);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+    }
+
+    @Test
+    public void testFindAllProdutsByStockLessThanEqual() {
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productC = TestDataUtils.createTestProductC();
+
+        productRepository.save(productA);
+        productRepository.save(productC);
+
+        List<Product> result = productRepository.findAllProductsByStockLessThanEqual(40);
+
+        assertNotNull(result);
+        assertEquals(2 , result.size());
+
+    }
+
 
 }

@@ -15,6 +15,6 @@ git clone https://github.com/sanjayv2002/electronics.git
 
 ### Swagger API doc link
 
-Click her to access the Swagger API link
+Click here to access the Swagger API link
 
 [locahost swagger link](localhost:8080/swagger-ui/index.html)
