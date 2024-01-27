@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
+@Component
 public class ProductTest {
 
     @InjectMocks
@@ -45,13 +47,80 @@ public class ProductTest {
             assertEquals(product, savedProduct);
             log.info("Inside testValidProduct:product validation test passed");
         } catch (Exception e) {
-            log.error("Inside testValidProduct: An {} Exception was thrown", e);
-            fail("An error occured while testing valid product:{} ", e);
+            log.error("Inside testValidProduct_ An  Exception was thrown", e);
+            fail("An error occurred while testing valid product:{} ", e);
         }
 
     }
 
+    @Test
+    void testBlankProductName() {
+        Product product = Product.builder()
+                .productId("1")
+                .productName("")
+                .price(1000.0f)
+                .stock(10)
+                .build();
 
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(1, violations.size());
+        assertEquals("Product name cannot be blank", violations.iterator().next().getMessage());
+    }
 
+    @Test
+    void testNullPrice() {
+        Product product = Product.builder()
+                .productId("1")
+                .productName("Laptop")
+                .price(null)
+                .stock(10)
+                .build();
+
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(1, violations.size());
+        assertEquals("Price cannot be null", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    void testNegativePrice() {
+        Product product = Product.builder()
+                .productId("1")
+                .productName("Laptop")
+                .price(-100.0f)
+                .stock(10)
+                .build();
+
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(1, violations.size());
+        assertEquals("Price cannot be negative", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    void testNullStock() {
+        Product product = Product.builder()
+                .productId("1")
+                .productName("Laptop")
+                .price(250.76F)
+                .stock(null)
+                .build();
+
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(1, violations.size());
+        assertEquals("Stock cannot be null", violations.iterator().next().getMessage());
+    }
+
+    @Test
+    void testNegativeStock() {
+        Product product = Product.builder()
+                .productId("1")
+                .productName("Laptop")
+                .price(100.30f)
+                .stock(-10)
+                .build();
+
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(1, violations.size());
+        assertEquals("Stock cannot be negative", violations.iterator().next().getMessage());
+    }
 
 }
