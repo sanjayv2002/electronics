@@ -121,5 +121,71 @@ public class ProductRepositoryTest {
 
     }
 
+    @Test
+    public void testFindAllProductsByStockGreaterThanEqual(){
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productC = TestDataUtils.createTestProductC();
+
+        productRepository.save(productA);
+        productRepository.save(productC);
+
+        List<Product> result = productRepository.findAllProductsByStockGreaterThanEqual(5);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+    }
+
+    @Test
+    public void testFindAllProductsByPrice() {
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productB = TestDataUtils.createTestProductB();
+        Product productC = TestDataUtils.createTestProductC();
+
+        productA.setPrice(250.55F);
+        productB.setPrice(250.55F);
+        productC.setPrice(250.55F);
+
+        productRepository.save(productA);
+        productRepository.save(productB);
+        productRepository.save(productC);
+
+        List<Product> result = productRepository.findAllProductsByPrice(250.55F);
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+
+    }
+
+    @Test
+    public void testFindAllProductsByStock() {
+
+        productRepository.deleteAll();
+
+        Product productA = TestDataUtils.createTestProductA();
+        Product productB = TestDataUtils.createTestProductB();
+        Product productC = TestDataUtils.createTestProductC();
+
+        productA.setStock(20);
+        productB.setStock(20);
+        productC.setStock(20);
+
+        productRepository.save(productA);
+        productRepository.save(productB);
+        productRepository.save(productC);
+
+        List<Product> result = productRepository.findAllProductsByStock(20);
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+
+    }
+
 
 }
