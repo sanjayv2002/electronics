@@ -32,7 +32,7 @@ public class ProductControllerTest {
     private ProductService productService;
 
     @Test
-    public void testGetProducts() throws Exception{
+    public void testGetProductsValidResponse() throws Exception{
         Product product = TestDataUtils.createTestProductE();
 
         when(productService.findAllProducts()).thenReturn(Collections.singletonList(product));
@@ -46,6 +46,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$[0].price").value(product.getPrice()))
                 .andExpect(jsonPath("$[0].stock").value(product.getStock()));
     }
+
 
     @Test
     public void testCreateProduct() throws Exception {
@@ -73,6 +74,9 @@ public class ProductControllerTest {
 
         Product product = TestDataUtils.createTestProductB();
         String productId = product.getProductId();
+
+        // save the product to db
+        productService.addProduct(product);
 
         // Mocking the service behavior
         when(productService.getProductById(productId)).thenReturn(product);

@@ -24,12 +24,7 @@ public class ProductServiceTest {
     public void testAddProduct(){
 
         Product product = TestDataUtils.createTestProductE();
-
-        when(productRepository.save(product)).thenReturn(product);
-
         Product result = productService.addProduct(product);
-
-
         assertEquals(product, result);
 
     }
